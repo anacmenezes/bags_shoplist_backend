@@ -8,6 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Historic implements Serializable {
@@ -21,16 +26,23 @@ public class Historic implements Serializable {
 	private String supermarket;
 	private String amount;
 	
+	@JsonIgnore
+	@OneToOne
+	@JoinColumn(name="shopList_id")
+	@MapsId
+	private MyShopList shopList;
+	
 	public Historic() {
 	}
 
-	public Historic(Integer id, String item, Date date, String supermarket, String amount) {
+	public Historic(Integer id, String item, Date date, String supermarket, String amount, MyShopList shopList) {
 		super();
 		this.id = id;
 		this.item = item;
 		this.date = date;
 		this.supermarket = supermarket;
 		this.amount = amount;
+		this.shopList = shopList;
 	}
 
 	public Integer getId() {
@@ -76,6 +88,14 @@ public class Historic implements Serializable {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
+	}
+	
+	public MyShopList getShopList() {
+		return shopList;
+	}
+
+	public void setShopList(MyShopList shopList) {
+		this.shopList = shopList;
 	}
 
 	@Override
