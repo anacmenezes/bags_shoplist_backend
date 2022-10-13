@@ -1,12 +1,20 @@
 package com.shoplist.bags.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class MyList implements Serializable {
@@ -17,13 +25,27 @@ public class MyList implements Serializable {
 	private Integer id;
 	private Integer name;
 	
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name="MYLIST_PRODUCT", joinColumns = @JoinColumn(name="myList_id"), 
+	inverseJoinColumns = @JoinColumn(name="product_id"))
+	private List<Product> product = new ArrayList<>();
+	
+	@JsonIgnore
+	@ManyToMany(mappedBy="myList")
+	private List<MyShopList> shopList = new ArrayList<>();
+	
+	@ManyToOne
+	private User users;
+	
 	public MyList() {
 	}
 
-	public MyList(Integer id, Integer name) {
+	public MyList(Integer id, Integer name, User users) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.users = users;
 	}
 
 	public Integer getId() {
@@ -40,6 +62,30 @@ public class MyList implements Serializable {
 
 	public void setName(Integer name) {
 		this.name = name;
+	}
+	
+	public List<Product> getProduct() {
+		return product;
+	}
+
+	public void setProduct(List<Product> product) {
+		this.product = product;
+	}
+	
+	public List<MyShopList> getShopList() {
+		return shopList;
+	}
+
+	public void setShopList(List<MyShopList> shopList) {
+		this.shopList = shopList;
+	}
+	
+	public User getUsers() {
+		return users;
+	}
+
+	public void setUsers(User users) {
+		this.users = users;
 	}
 
 	@Override

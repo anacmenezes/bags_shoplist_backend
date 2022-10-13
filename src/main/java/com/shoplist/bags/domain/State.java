@@ -1,12 +1,17 @@
 package com.shoplist.bags.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class State implements Serializable {
@@ -16,6 +21,10 @@ public class State implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private Integer id;
 	private String name;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="state")
+	private List<Country> country = new ArrayList<>();
 	
 	public State() {
 	}
@@ -40,6 +49,14 @@ public class State implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<Country> getCountry() {
+		return country;
+	}
+
+	public void setCountry(List<Country> country) {
+		this.country = country;
 	}
 
 	@Override

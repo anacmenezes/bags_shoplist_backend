@@ -1,15 +1,21 @@
 package com.shoplist.bags.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Client implements Serializable {
+public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -20,10 +26,17 @@ public class Client implements Serializable {
 	private String cpf;
 	private String phone;
 	
-	public Client() {
+	@OneToMany
+	private List<MyList> myList = new ArrayList<>();
+	
+	@JsonIgnore
+	@ManyToMany(mappedBy="users")
+	private List<Address> address = new ArrayList<>();
+	
+	public User() {
 	}
 
-	public Client(Integer id, String name, String email, String cpf, String phone) {
+	public User(Integer id, String name, String email, String cpf, String phone) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -71,6 +84,22 @@ public class Client implements Serializable {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	
+	public List<MyList> getMyList() {
+		return myList;
+	}
+
+	public void setMyList(List<MyList> myList) {
+		this.myList = myList;
+	}
+	
+	public List<Address> getAddress() {
+		return address;
+	}
+
+	public void setAddress(List<Address> address) {
+		this.address = address;
+	}
 
 	@Override
 	public int hashCode() {
@@ -85,7 +114,7 @@ public class Client implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Client other = (Client) obj;
+		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}	
 }
