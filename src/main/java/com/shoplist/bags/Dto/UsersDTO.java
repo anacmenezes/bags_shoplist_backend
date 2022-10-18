@@ -7,9 +7,9 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.shoplist.bags.domain.User;
+import com.shoplist.bags.domain.Users;
 
-public class UserDTO implements Serializable {
+public class UsersDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
@@ -22,10 +22,10 @@ public class UserDTO implements Serializable {
 	@Email(message="Email inválido")
 	private String email;
 	
-	public UserDTO() {
+	public UsersDTO() {
 	}
 
-	public UserDTO(User obj) {
+	public UsersDTO(Users obj) {
 		id = obj.getId();
 		name = obj.getName();
 		email = obj.getEmail();

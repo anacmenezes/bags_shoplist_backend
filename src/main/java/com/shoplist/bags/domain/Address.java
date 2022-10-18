@@ -31,9 +31,9 @@ public class Address implements Serializable {
 	
 	@JsonIgnore
 	@ManyToMany
-	@JoinTable(name="ADDRESS_USER", joinColumns = @JoinColumn(name="address_id"), 
+	@JoinTable(name="ADDRESS_USERS", joinColumns = @JoinColumn(name="address_id"), 
 	inverseJoinColumns = @JoinColumn(name="users_id"))
-	private List<User> users = new ArrayList<>();
+	private List<Users> users = new ArrayList<>();
 	
 	@ManyToOne
 	@JoinColumn(name="country_id")
@@ -101,11 +101,11 @@ public class Address implements Serializable {
 		this.district = district;
 	}
 	
-	public List<User> getUsers() {
+	public List<Users> getUsers() {
 		return users;
 	}
 
-	public void setUsers(List<User> users) {
+	public void setUsers(List<Users> users) {
 		this.users = users;
 	}
 

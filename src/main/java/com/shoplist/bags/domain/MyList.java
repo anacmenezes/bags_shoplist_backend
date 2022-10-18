@@ -35,13 +35,15 @@ public class MyList implements Serializable {
 	@ManyToMany(mappedBy="myList")
 	private List<MyShopList> shopList = new ArrayList<>();
 	
+	@JsonIgnore
 	@ManyToOne
-	private User users;
+	@JoinColumn(name="users_id")
+	private Users users;
 	
 	public MyList() {
 	}
 
-	public MyList(Integer id, Integer name, User users) {
+	public MyList(Integer id, Integer name, Users users) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -80,11 +82,11 @@ public class MyList implements Serializable {
 		this.shopList = shopList;
 	}
 	
-	public User getUsers() {
+	public Users getUsers() {
 		return users;
 	}
 
-	public void setUsers(User users) {
+	public void setUsers(Users users) {
 		this.users = users;
 	}
 

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +15,7 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class User implements Serializable {
+public class Users implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -25,17 +26,17 @@ public class User implements Serializable {
 	private String cpf;
 	private String phone;
 	
-	@OneToMany
+	@OneToMany(mappedBy="users", cascade=CascadeType.ALL)
 	private List<MyList> myList = new ArrayList<>();
 	
 	@JsonIgnore
-	@ManyToMany(mappedBy="users")
+	@ManyToMany(mappedBy="users", cascade=CascadeType.ALL)
 	private List<Address> address = new ArrayList<>();
 	
-	public User() {
+	public Users() {
 	}
 
-	public User(Integer id, String name, String email, String cpf, String phone) {
+	public Users(Integer id, String name, String email, String cpf, String phone) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -116,7 +117,7 @@ public class User implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Users other = (Users) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
