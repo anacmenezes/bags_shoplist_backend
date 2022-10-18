@@ -12,10 +12,22 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
+@Builder
 @Entity
 public class Address implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -23,7 +35,6 @@ public class Address implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private Integer id;
-	private String zCode;
 	private String place;
 	private String number;
 	private String complement;
@@ -35,22 +46,16 @@ public class Address implements Serializable {
 	inverseJoinColumns = @JoinColumn(name="users_id"))
 	private List<Users> users = new ArrayList<>();
 	
-	@ManyToOne
-	@JoinColumn(name="country_id")
-	private Country country;
-	
 	public Address() {
 	}
 
-	public Address(Integer id, String zCode, String place, String number, String complement, String district, Country country) {
+	public Address(Integer id, String place, String number, String complement, String district) {
 		super();
 		this.id = id;
-		this.zCode = zCode;
 		this.place = place;
 		this.number = number;
 		this.complement = complement;
 		this.district = district;
-		this.country = country;
 	}
 
 	public Integer getId() {
@@ -59,14 +64,6 @@ public class Address implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getzCode() {
-		return zCode;
-	}
-
-	public void setzCode(String zCode) {
-		this.zCode = zCode;
 	}
 
 	public String getPlace() {
@@ -107,14 +104,6 @@ public class Address implements Serializable {
 
 	public void setUsers(List<Users> users) {
 		this.users = users;
-	}
-
-	public Country getCountry() {
-		return country;
-	}
-
-	public void setCountry(Country country) {
-		this.country = country;
 	}
 
 	@Override
