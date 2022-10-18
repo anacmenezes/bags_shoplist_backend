@@ -1,13 +1,10 @@
 package com.shoplist.bags;
 
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.shoplist.bags.domain.Category;
 import com.shoplist.bags.repositories.CategoryRepository;
 
 @SpringBootApplication
@@ -25,10 +22,10 @@ public class BagsApplication implements CommandLineRunner {
 		
 		categoryRepository.deleteAll();
 		
-		Category cat1 = new Category(null, "Congelados");
-		Category cat2 = new Category(null, "Laticínios");
-		
-		categoryRepository.saveAll(Arrays.asList(cat1, cat2));
+//		Category cat1 = new Category(null, "Congelados");
+//		Category cat2 = new Category(null, "Laticínios");
+//		
+//		categoryRepository.saveAll(Arrays.asList(cat1, cat2));
 		
 	}
 }
